@@ -21,7 +21,7 @@ public class inicio /* extends OpMode */{
     GoBildaPinpointDriver odometria;
     double alvoY;
     double alvoX;
-    public double[] calculos(double potenciaX, double potenciaY , double IMU, double giro, final double Alvo, double X, double Y){
+    public void calculos(double potenciaX, double potenciaY , double IMU, double giro, final double Alvo){
         odometria.initialize();
         odometria.setPosition(new Pose2D(DistanceUnit.INCH, 0, 0, AngleUnit.DEGREES, 0));
         Pose2D pose2D = odometria.getPosition();
@@ -64,6 +64,28 @@ public class inicio /* extends OpMode */{
         m1 *= max_velocity;
         m2 *= max_velocity;
         m3 *= max_velocity;
-        return new double[]{m1, m2, m3};
+
+        /*
+        motor1.setVelocity(m1);
+        motor2.setVelocity(m2);
+        motor3.setVelocity(m3);
+         */
+    }
+    public void andar(int AlvoX, int Alvoy, double potY, double potX, double giro){
+        odometria.initialize();
+        odometria.setPosition(new Pose2D(DistanceUnit.MM, 0, 0, AngleUnit.RADIANS, 0));
+        Pose2D pose2D = odometria.getPosition();
+        double podY;
+        double podX;
+        podY = (int) pose2D.getY(DistanceUnit.MM);
+        double giroscopio;
+        double Y = Integer.compare(Alvoy,(int) podY);
+        Y *= potY;
+        podX = (int) pose2D.getX(DistanceUnit.MM);
+        double X = Integer.compare(AlvoX,(int) podX);
+        X *= potX;
+        giroscopio =
+                pose2D.getHeading(AngleUnit.RADIANS);
+        calculos(X, Y, giroscopio, giro, giroscopio);
     }
 }
