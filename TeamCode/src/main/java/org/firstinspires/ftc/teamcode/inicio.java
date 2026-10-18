@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -8,26 +9,17 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-
+@Autonomous(name = "Início")
 public class inicio extends LinearOpMode {
-
-//
-//    public void init(){
-//
-//    }
-//
-//    public void loop(){
-//
-//    }
     GoBildaPinpointDriver odometria;
-    double alvoY;
-    double alvoX;
     public void calculos(double potenciaX, double potenciaY , double IMU, double giro, final double Alvo){
         odometria.initialize();
         odometria.setPosition(new Pose2D(DistanceUnit.INCH, 0, 0, AngleUnit.DEGREES, 0));
         Pose2D pose2D = odometria.getPosition();
-        alvoY = pose2D.getY(DistanceUnit.CM);
-        alvoX = pose2D.getX(DistanceUnit.CM);
+        final double alvoY = pose2D.getY(DistanceUnit.MM);
+        final double alvoX = pose2D.getX(DistanceUnit.MM);
+        double angX = pose2D.getX(DistanceUnit.MM);
+        double angY = pose2D.getY(DistanceUnit.MM);
         double kP =
                 0.001;
         double vx =
@@ -42,7 +34,13 @@ public class inicio extends LinearOpMode {
                 Alvo - angulo;
         double Proporcional =
                 kP * erro;
+        if (potenciaX == 0 && potenciaY == 0){
+            double erro_atualpodX = alvoX - angX;
+            double erro_atualpodY = alvoY - angY;
 
+            double potX;
+            double potY;
+        }
         double vxRot = vx * Math.cos(angulo) + vy * Math.sin(angulo); //Calcula o valor vetorial rotacional no eixo X
         double vyRot = -vx * Math.sin(angulo) + vy * Math.cos(angulo); //Calcula o valor vetorial rotacional no eixo Y
 
@@ -71,6 +69,7 @@ public class inicio extends LinearOpMode {
         motor2.setVelocity(m2);
         motor3.setVelocity(m3);
          */
+
     }
     public void andar(int AlvoX, int Alvoy, double potY, double potX, double giro){
         odometria.initialize();
@@ -89,10 +88,10 @@ public class inicio extends LinearOpMode {
                 pose2D.getHeading(AngleUnit.RADIANS);
         calculos(X, Y, giroscopio, giro, giroscopio);
     }
-    public void shoot(){
+    public void shoot(long tempoSeg){
 //        intake.setPower(0.8);
 //        shooter.setPower(0.7);
-        sleep(1000);
+        sleep((tempoSeg * 1000));
 //        intake.setPower(0);
 //        shooter.setPower(0);
     }
