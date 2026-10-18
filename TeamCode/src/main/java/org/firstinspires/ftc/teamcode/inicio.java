@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -8,8 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
-public class inicio /* extends OpMode */{
-//
+public class inicio extends LinearOpMode {
+
 //
 //    public void init(){
 //
@@ -87,5 +88,17 @@ public class inicio /* extends OpMode */{
         giroscopio =
                 pose2D.getHeading(AngleUnit.RADIANS);
         calculos(X, Y, giroscopio, giro, giroscopio);
+    }
+    public void shoot(){
+//        intake.setPower(0.8);
+//        shooter.setPower(0.7);
+        sleep(1000);
+//        intake.setPower(0);
+//        shooter.setPower(0);
+    }
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
     }
 }
