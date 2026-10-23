@@ -15,7 +15,7 @@ public class Averiguador extends OpMode {
     @Override
     public void init() {
     odometria = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
-        odometria.setOffsets(19.5F, 18.9F, DistanceUnit.CM);
+        odometria.setOffsets(5.5F, 4.9F, DistanceUnit.CM);
         odometria.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         odometria.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,
                 GoBildaPinpointDriver.EncoderDirection.FORWARD);
