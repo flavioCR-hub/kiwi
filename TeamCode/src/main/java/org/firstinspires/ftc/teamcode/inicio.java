@@ -74,6 +74,7 @@ public class inicio extends LinearOpMode {
     public void andar(int AlvoX, int Alvoy, double potY, double potX, double giro){
         odometria.initialize();
         odometria.setPosition(new Pose2D(DistanceUnit.MM, 0, 0, AngleUnit.RADIANS, 0));
+while(opModeIsActive()){
         Pose2D pose2D = odometria.getPosition();
         double podY;
         double podX;
@@ -87,6 +88,8 @@ public class inicio extends LinearOpMode {
         giroscopio =
                 pose2D.getHeading(AngleUnit.RADIANS);
         calculos(X, Y, giroscopio, giro, giroscopio);
+}
+//fazer uma função parecida com o integer.compare so que com números double.
     }
     public void shoot(long tempoSeg){
 //        intake.setPower(0.8);
